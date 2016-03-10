@@ -1,3 +1,9 @@
 /input/
 /output/
 /soft/
+/conf/masters
+/conf/slaves
+/conf/core-site.xml
+/conf/hdfs-site.xml
+/conf/mapred-site.xml
+/conf/*.log

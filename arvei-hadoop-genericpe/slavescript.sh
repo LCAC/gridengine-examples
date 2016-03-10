@@ -4,7 +4,7 @@ set -e
 echo "===== $HOSTNAME:$0" 1>&2
 
 check_exported_vars() {
-        for V in ARVEI_NAS_DIR ARVEI_JOB_DIR JAVA_HOME HADOOP_HOME HADOOP_CONF
+        for V in ARVEI_JOB_DIR JAVA_HOME HADOOP_HOME HADOOP_CONF
         do
                 if eval "test -z \"\$$V\""
                 then

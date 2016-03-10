@@ -3,14 +3,14 @@
 # Set the shell to be used:
 #$ -S /bin/bash
 # Use these environment variables (must be defined) before calling to qsub:
-#$ -v ARVEI_NAS_DIR,ARVEI_JOB_DIR,JAVA_HOME,HADOOP_HOME,HADOOP_CONF
+#$ -v ARVEI_JOB_DIR,JAVA_HOME,HADOOP_HOME,HADOOP_CONF
 # We will receive an e-mail just after the job start and just after the jon end to this e-mail address:
 #$ -m bea
 
 set -e
 
 check_exported_vars() {
-	for V in ARVEI_NAS_DIR ARVEI_JOB_DIR JAVA_HOME HADOOP_HOME HADOOP_CONF
+	for V in ARVEI_JOB_DIR JAVA_HOME HADOOP_HOME HADOOP_CONF
 	do
 		if eval "test -z \"\$$V\""
 		then

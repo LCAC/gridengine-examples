@@ -3,32 +3,32 @@
 set -e
 echo "===== $HOSTNAME:$0" 1>&2
 
+check_exported_vars() {
+        for V in ARVEI_NAS_DIR ARVEI_JOB_DIR JAVA_HOME HADOOP_HOME HADOOP_CONF
+        do
+                if eval "test -z \"\$$V\""
+                then
+                        echo "ERROR! Environment variable $V must be defined." 1>&2
+                        exit 1
+                fi
+        done
+}
+
+# Check for mandatory variables
+check_exported_vars
+
 # Request exclusive node access
 qalter -l genericpe_master=1
 
 # Define variables
-export SGE_HADOOP_DIR=$BASE_DIR
+export SGE_HADOOP_DIR=$ARVEI_JOB_DIR
 
 JPS="$JAVA_HOME/bin/jps"
-## we get HADOOP_HOME from jobs env
+## we get HADOOP_HOME and HADOOP_CONF from jobs env
 cd $HADOOP_HOME
 
-DIRNAS=1
-while [ ! -d /scratch/nas/$DIRNAS/$USER ] && [ $DIRNAS -lt 10 ] ; do
-        let DIRNAS=DIRNAS+1
-done
-
-
 # Prepare configuration
-if [ "X" = "X$HADOOP_CONF" ] ; then
-	export CONF=/scratch/nas/$DIRNAS/$USER/hadoop_config.$JOB_ID
-
-	# Copy config to USER area
-	cp -rp $HADOOP_HOME/conf $CONF
-else
-	export CONF=$HADOOP_CONF
-fi
-
+export CONF=$HADOOP_CONF
 export LOG=$CONF/${JOB_NAME}_${JOB_ID}.log
 export HADOOP_LOG_DIR=$CONF
 

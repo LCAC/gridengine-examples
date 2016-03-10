@@ -3,10 +3,21 @@
 set -e
 echo "===== $HOSTNAME:$0" 1>&2
 
-export JAVA_HOME=/Soft/java/jdk1.6.0_30
+check_exported_vars() {
+        for V in ARVEI_NAS_DIR ARVEI_JOB_DIR JAVA_HOME HADOOP_HOME HADOOP_CONF
+        do
+                if eval "test -z \"\$$V\""
+                then
+                        echo "ERROR! Environment variable $V must be defined." 1>&2
+                        exit 1
+                fi
+        done
+}
+
+# Check for mandatory variables
+check_exported_vars
 
 echo "Configuring slave datanode"
-$HADOOP_HOME/bin/hdfs --config `pwd` datanode &
+$HADOOP_HOME/bin/hdfs --config "$PWD" datanode &
 echo "Configuring slave tasktracker"
-$HADOOP_HOME/sbin/hadoop-daemons.sh --config `pwd` start tasktracker
-
+$HADOOP_HOME/sbin/hadoop-daemons.sh --config "$PWD" start tasktracker

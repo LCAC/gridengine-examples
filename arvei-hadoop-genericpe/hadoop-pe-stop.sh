@@ -3,18 +3,22 @@
 set -e
 echo "===== $HOSTNAME:$0" 1>&2
 
-DIRNAS=1
-while [ ! -d /scratch/nas/$DIRNAS/$USER ] && [ $DIRNAS -lt 10 ] ; do
-        let DIRNAS=DIRNAS+1
-done
+check_exported_vars() {
+        for V in ARVEI_NAS_DIR ARVEI_JOB_DIR JAVA_HOME HADOOP_HOME HADOOP_CONF
+        do
+                if eval "test -z \"\$$V\""
+                then
+                        echo "ERROR! Environment variable $V must be defined." 1>&2
+                        exit 1
+                fi
+        done
+}
+
+# Check for mandatory variables
+check_exported_vars
 
 # Prepare configuration
-if [ "X" = "X$HADOOP_CONF" ] ; then
-        export CONF=/scratch/nas/$DIRNAS/$USER/hadoop_config.$JOB_ID
-else
-	export CONF=$HADOOP_CONF
-fi
-
+export CONF=$HADOOP_CONF
 export LOG=$CONF/${JOB_NAME}_${JOB_ID}.log
 export HADOOP_LOG_DIR=$CONF
 
@@ -25,6 +29,3 @@ done
 
 # Make sure the job stops successfully
 exit 0
-
-### Start hdfs and mapred daemons
-

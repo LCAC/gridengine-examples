@@ -53,7 +53,7 @@ tmphdfs="\\/scratch\\/1\\/$USER\\/hadoop_hdfs.$JOB_ID"
 
 # Modify templates
 for file in hdfs-site mapred-site core-site; do
-	sed -e "s/HADOOP_MASTER_HOST/$master/g" -e "s/HADDOP_MASTER_HOST/$master/g" -e "s/HDFSPORT/54310/g" -e "s/HMPRPORT/54311/g" -e "s/HMTASKS/$NSLOTS/g" -e "s/HRTASKS/$NSLOTS/g" -e "s/HTPN/$tpn/g" -e "s/HTMPDIR/$tmphdfs/g" -e "s/HDFSREPLICATIONS/$replications/g" $CONF/$file-template.xml > $CONF/$file.xml
+	sed -e "s/HADOOP_MASTER_HOST/$master/g" -e "s/HDFSPORT/54310/g" -e "s/HMPRPORT/54311/g" -e "s/HMTASKS/$NSLOTS/g" -e "s/HRTASKS/$NSLOTS/g" -e "s/HTPN/$tpn/g" -e "s/HTMPDIR/$tmphdfs/g" -e "s/HDFSREPLICATIONS/$replications/g" $CONF/$file-template.xml > $CONF/$file.xml
 done
 
 

@@ -11,6 +11,6 @@
 	</property>
 	<property>
 		<name>fs.default.name</name>
-		<value>hdfs://HADDOP_MASTER_HOST:HDFSPORT</value>
+		<value>hdfs://HADOOP_MASTER_HOST:HDFSPORT</value>
 	</property>
 </configuration>

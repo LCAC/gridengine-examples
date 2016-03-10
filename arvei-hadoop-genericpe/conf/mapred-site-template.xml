@@ -7,7 +7,7 @@
 
 	<property>
 		<name>mapred.job.tracker</name>
-		<value>HADDOP_MASTER_HOST:HMPRPORT</value>
+		<value>HADOOP_MASTER_HOST:HMPRPORT</value>
 	</property>
 
 

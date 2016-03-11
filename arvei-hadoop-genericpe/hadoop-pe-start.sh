@@ -67,7 +67,7 @@ rm -f $FILEYES
 # Start master processes
 echo "Configuring master node: $master" >> $LOG 2>&1
 cd $CONF
-$SGE_HADOOP_DIR/masterscript.sh >> $LOG 2>&1 
+$SGE_HADOOP_DIR/hadoop-master.sh >> $LOG 2>&1
 
 sleep 2
 
@@ -76,7 +76,7 @@ sleep 2
 newslaves=`cat $CONF/slaves | grep -v "$( cat $CONF/masters )"`
 for i in `echo $newslaves`; do
 	echo "Configuring slave node: $i" >> $LOG 2>&1
-	qrsh -inherit -nostdin -V $i "cd $CONF; $SGE_HADOOP_DIR/slavescript.sh" >> $LOG 2>&1 &
+	qrsh -inherit -nostdin -V $i "cd $CONF; $SGE_HADOOP_DIR/hadoop-slave.sh" >> $LOG 2>&1 &
 done
 
 sleep 2

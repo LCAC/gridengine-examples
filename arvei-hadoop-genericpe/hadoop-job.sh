@@ -1,5 +1,5 @@
 # Set a name for the job:
-#$ -N hadoop_test_job
+#$ -N hadoop-wordcount
 # Set the shell to be used:
 #$ -S /bin/bash
 # Use these environment variables (must be defined) before calling to qsub:
